@@ -15,12 +15,18 @@ const replyRoutes = require('./routes/Forum/replyRoutes');
 
 const app = express();
 
+app.get('/', (req, res) => {
+  res.send('Hello, this is the root route!');
+});
+
 // Middleware
 const authenticateToken = require('./middleware/authMiddleware');
 app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use(express.static('public'));
+
 app.use('/api/auth', authRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/categories', categoryRoutes);
@@ -40,11 +46,10 @@ app.listen(PORT, () => {
 });
 
 
-app.get('/db-test', async (req, res) => {
+app.get('/db-check', async (req, res) => {
   try {
-    const [result] = await promisePool.query('SELECT 1');
-    res.status(200).json({ message: 'Database connection successful', result });
+    res.status(200).send('Database connected successfully!');
   } catch (error) {
-    res.status(500).json({ error: 'Database connection failed', details: error.message });
+    res.status(500).send('Database connection failed: ' + error.message);
   }
 });
