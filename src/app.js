@@ -10,6 +10,7 @@ const authRoutes = require('./routes/authRoutes');
 const articleRoutes = require('./routes/Articles/articleRoutes');
 const postRoutes = require('./routes/Forum/postRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const replyRoutes = require('./routes/Forum/replyRoutes');
 
 
 const app = express();
@@ -22,8 +23,9 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/articles', articleRoutes);
-app.use('/api/forum/posts', postRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/forum/posts', postRoutes);
+app.use('/api/posts', replyRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
