@@ -19,6 +19,11 @@ app.get('/', (req, res) => {
   res.send('Hello, this is the root route!');
 });
 
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end();
+});
+
+
 // Middleware
 const authenticateToken = require('./middleware/authMiddleware');
 app.use(cors());
